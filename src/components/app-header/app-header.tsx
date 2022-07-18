@@ -1,5 +1,5 @@
-import { useState, useCallback, FC } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import {  useCallback, FC } from "react";
+import {  useHistory } from "react-router-dom";
 import {
   Logo,
   BurgerIcon,
@@ -29,6 +29,10 @@ const  AppHeader = ({ constr, lenta, profile } : IAppHeader) => {
     history.push({ pathname: "/profile" });
   }, [history]);
 
+  const goToFeed = useCallback(() => {
+    history.push({ pathname: "/feed" });
+  }, [history]);
+
   const goToMain = useCallback(() => {
     history.push({ pathname: "/" });
   }, [history]);
@@ -50,13 +54,13 @@ const  AppHeader = ({ constr, lenta, profile } : IAppHeader) => {
               </li>
             )}
             {lenta === "active" ? (
-              <li>
+              <li onClick={goToFeed}>
                 <AppHeaderButton typeButton="active" text="Лента заказов">
                   <ListIcon type="primary" />
                 </AppHeaderButton>
               </li>
             ) : (
-              <li>
+              <li onClick={goToFeed}>
                 <AppHeaderButton typeButton="" text="Лента заказов">
                   <ListIcon type="secondary" />
                 </AppHeaderButton>

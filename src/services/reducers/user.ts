@@ -1,3 +1,4 @@
+import { ILoginForm } from "../../pages";
 import {
   RESET_FORGOT_PASSWORD,
   RESET_PASSWORD,
@@ -5,14 +6,21 @@ import {
   RESET_USER,
   RESET_ISLOGGEDIN
 } from "../actions/user";
+import { TUserActions } from "../actions/user";
 
-const initialState = {
+export type TUserState = {
+  passwordReset: {success: boolean} | Readonly<{ [email: string]: string; }>;
+  user: null | {email: string, name: string} | Readonly<ILoginForm>;
+  isLoggedIn: boolean;
+}
+
+const initialState: TUserState = {
   passwordReset: { success: false },
   user: null,
   isLoggedIn: false,
 };
 
-export function userReducer(state = initialState, action: any) {
+export function userReducer(state = initialState, action: TUserActions): TUserState {
   switch (action.type) {
     case RESET_FORGOT_PASSWORD:
       return { ...state, passwordReset: action.payload };
